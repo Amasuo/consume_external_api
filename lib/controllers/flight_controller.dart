@@ -4,15 +4,15 @@ import 'package:get/state_manager.dart';
 
 class FlightController extends GetxController {
   var isLoading = true.obs;
-  var flightList = List<Datum>();
+  var flightList = List<Datum>().obs;
 
   @override
   void onInit() {
-    fetchHotels();
+    fetchFlights();
     super.onInit();
   }
 
-  void fetchHotels() async {
+  void fetchFlights() async {
     try{
       isLoading(true);
       var flights = await RemoteServices.fetchFlights();
