@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:consume_external_api/models/flight.dart';
 import 'package:http/http.dart' as http;
 import 'package:consume_external_api/models/hotel.dart';
 
@@ -31,4 +32,18 @@ class RemoteServices{
       return null;
     }
   }
+
+  static Future<Flight> fetchFlights() async {
+    String token = await getToken();
+    String url = "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=SYD&destinationLocationCode=BKK&departureDate=2021-11-01&adults=1";
+    Map<String, String> headers = {"Authorization": "Bearer "+token, };
+    var response = await client.get(url,headers: headers);
+    if (response.statusCode == 200) {
+      var jsonString = response.body;
+      return flightFromJson(jsonString);
+    } else {
+      return null;
+    }
+  }
+
 }

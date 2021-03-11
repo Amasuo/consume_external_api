@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:consume_external_api/models/hotel.dart';
+import 'package:consume_external_api/models/flight.dart';
 
-class HotelTile extends StatelessWidget {
-  final HotelClass hotel;
-  const HotelTile(this.hotel);
+class FlightTile extends StatelessWidget {
+  final Datum flight;
+  const FlightTile(this.flight);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,7 @@ class HotelTile extends StatelessWidget {
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Image.network(
-                    "https://png.pngtree.com/png-vector/20190521/ourlarge/pngtree-hotel-icon-for-personal-and-commercial-use-png-image_1044892.jpg",
+                    "https://i.pinimg.com/736x/5f/4b/0c/5f4b0c68d578c109b5d81b53957c96ac.jpg",
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -44,14 +43,28 @@ class HotelTile extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              hotel.name,
+              "Available Seats: "+flight.numberOfBookableSeats.toString(),
+              maxLines: 2,
+              style:
+              TextStyle(fontFamily: 'avenir', fontWeight: FontWeight.w800),
+              overflow: TextOverflow.ellipsis,
+            ),SizedBox(height: 8),
+            Text(
+              "OneWay: "+flight.oneWay.toString(),
               maxLines: 2,
               style:
               TextStyle(fontFamily: 'avenir', fontWeight: FontWeight.w800),
               overflow: TextOverflow.ellipsis,
             ),
             SizedBox(height: 8),
-            if (hotel.rating != null)
+            Text(
+              "Price: "+flight.price.total.toString()+' '+flight.price.currency,
+              maxLines: 2,
+              style:
+              TextStyle(fontFamily: 'avenir', fontWeight: FontWeight.w800),
+              overflow: TextOverflow.ellipsis,
+            ),
+            /*if (hotel.rating != null)
               Container(
                 decoration: BoxDecoration(
                   color: Colors.green,
@@ -72,7 +85,7 @@ class HotelTile extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
+              ),*/
             SizedBox(height: 8),
           ],
         ),
