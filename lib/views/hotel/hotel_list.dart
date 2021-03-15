@@ -4,8 +4,23 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'hotel_tile.dart';
 
-class HotelsPage extends StatelessWidget {
-  final HotelController hotelController = Get.put(HotelController());
+
+class HotelsPage extends StatefulWidget {
+  String cityCode;
+  HotelsPage(this.cityCode);
+
+  @override
+  _HotelsPageState createState() => _HotelsPageState();
+}
+
+class _HotelsPageState extends State<HotelsPage> {
+  HotelController hotelController;
+
+  @override
+  void initState() {
+    hotelController = Get.put(HotelController(widget.cityCode));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,3 +74,6 @@ class HotelsPage extends StatelessWidget {
     );
   }
 }
+
+
+

@@ -1,10 +1,13 @@
-import 'package:consume_external_api/models/hotel.dart';
+import 'package:consume_external_api/models/hotel_fromJSON.dart';
 import 'package:consume_external_api/services/remote_services.dart';
 import 'package:get/state_manager.dart';
 
 class HotelController extends GetxController {
   var isLoading = true.obs;
   var hotelList = List<Datum>().obs;
+  String cityCode;
+
+  HotelController(this.cityCode);
 
   @override
   void onInit() {
@@ -15,7 +18,7 @@ class HotelController extends GetxController {
   void fetchHotels() async {
     try{
       isLoading(true);
-      var hotels = await RemoteServices.fetchHotels();
+      var hotels = await RemoteServices.fetchHotels(cityCode);
       if (hotels != null){
         hotelList.assignAll(hotels.data);
       }
@@ -23,4 +26,5 @@ class HotelController extends GetxController {
       isLoading(false);
     }
   }
+
 }

@@ -1,8 +1,10 @@
 import 'dart:convert';
-
-import 'package:consume_external_api/models/flight.dart';
 import 'package:http/http.dart' as http;
-import 'package:consume_external_api/models/hotel.dart';
+import 'package:consume_external_api/models/flight_fromJSON.dart';
+import 'package:consume_external_api/models/hotel_fromJSON.dart' as hotelModel;
+import 'package:consume_external_api/models/offers_fromJSON.dart' as offerModel;
+
+
 
 class RemoteServices{
   static var client = http.Client();
@@ -20,22 +22,35 @@ class RemoteServices{
     }
   }
 
-   static Future<Hotel> fetchHotels() async{
+   static Future<hotelModel.Hotel> fetchHotels(String cityCode) async{
     String token = await getToken();
-    String url = "https://test.api.amadeus.com/v2/shopping/hotel-offers?cityCode=LON";
+    String url = "https://test.api.amadeus.com/v2/shopping/hotel-offers?cityCode=$cityCode";
     Map<String, String> headers = {"Authorization": "Bearer "+token, };
     var response = await client.get(url,headers: headers);
     if (response.statusCode == 200) {
       var jsonString = response.body;
-      return hotelFromJson(jsonString);
+      return hotelModel.hotelFromJson(jsonString);
     } else{
       return null;
     }
   }
 
-  static Future<Flight> fetchFlights() async {
+  static Future<offerModel.Offer> fetchHotelOffers(String hotelId) async {
     String token = await getToken();
-    String url = "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=SYD&destinationLocationCode=BKK&departureDate=2021-11-01&adults=1";
+    String url = "https://test.api.amadeus.com/v2/shopping/hotel-offers/by-hotel?hotelId=$hotelId";
+    Map<String, String> headers = {"Authorization": "Bearer "+token, };
+    var response = await client.get(url,headers: headers);
+    if (response.statusCode == 200) {
+      var jsonString = response.body;
+      return offerModel.offerFromJson(jsonString);
+    } else {
+      return null;
+    }
+  }
+
+  static Future<Flight> fetchFlights(String originLocationCode, String destinationLocationCode, String departureDate, String adults) async {
+    String token = await getToken();
+    String url = "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=$originLocationCode&destinationLocationCode=$destinationLocationCode&departureDate=$departureDate&adults=$adults";
     Map<String, String> headers = {"Authorization": "Bearer "+token, };
     var response = await client.get(url,headers: headers);
     if (response.statusCode == 200) {

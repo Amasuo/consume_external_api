@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:consume_external_api/models/flight.dart';
+import 'package:consume_external_api/models/flight_fromJSON.dart';
 
 class FlightTile extends StatelessWidget {
   final Datum flight;

@@ -4,8 +4,22 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'flight_tile.dart';
 
-class FlightsPage extends StatelessWidget {
-  final FlightController flightController = Get.put(FlightController());
+class FlightsPage extends StatefulWidget {
+  String originLocationCode, destinationLocationCode, departureDate, adults;
+  FlightsPage(this.originLocationCode, this.destinationLocationCode, this.departureDate, this.adults);
+
+  @override
+  _FlightsPageState createState() => _FlightsPageState();
+}
+
+class _FlightsPageState extends State<FlightsPage> {
+  FlightController flightController;
+
+  @override
+  void initState() {
+    flightController = Get.put(FlightController(widget.originLocationCode, widget.destinationLocationCode, widget.departureDate, widget.adults));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
