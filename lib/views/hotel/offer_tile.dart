@@ -53,7 +53,7 @@ class OfferTile extends StatelessWidget {
                         Align(
                           alignment: Alignment.topRight,
                           child: Text(
-                              offer.price.total+' '+offer.price.currency,
+                              offer.price.total+' £',//+offer.price.currency,
                               style: TextStyle(
                                   color: Colors.cyan,
                                   fontSize: 15,
