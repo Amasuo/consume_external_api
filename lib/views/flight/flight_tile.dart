@@ -1,47 +1,83 @@
 import 'package:flutter/material.dart';
 import 'package:consume_external_api/models/flight_fromJSON.dart';
+import 'package:get/get.dart';
 
 class FlightTile extends StatelessWidget {
   final Datum flight;
+
   const FlightTile(this.flight);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Container(
+      padding: EdgeInsets.fromLTRB(10,10,10,0),
+      height: Get.height/7,
+      width: double.maxFinite,
+      child: Card(
+        elevation: 5,
+        child: Padding(
+          padding: EdgeInsets.all(7),
+          child: Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 10, top: 5),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                flight.itineraries[0].segments[0].departure.at.day.toString()+'-'+flight.itineraries[0].segments[0].departure.at.month.toString()+'-'+flight.itineraries[0].segments[0].departure.at.year.toString()+' - '+ flight.itineraries[0].segments[0].arrival.at.day.toString()+'-'+flight.itineraries[0].segments[0].arrival.at.month.toString()+'-'+flight.itineraries[0].segments[0].arrival.at.year.toString(),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey,
+                                    fontSize: 15
+                                ),
+                              ),
+                              Text(
+                                flight.numberOfBookableSeats.toString()+' Seat(s)',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Spacer(),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Text(
+                            flight.price.total+' £',//+offer.price.currency,
+                            style: TextStyle(
+                              color: Colors.cyan,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+    /*Card(
       elevation: 2,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              children: [
-                Container(
-                  height: 180,
-                  width: double.infinity,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Image.network(
-                    "https://i.pinimg.com/736x/5f/4b/0c/5f4b0c68d578c109b5d81b53957c96ac.jpg",
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Positioned(
-                  right: 0,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: IconButton(
-                      icon: Icon(Icons.favorite_border),
-                      onPressed: () {
-                      },
-                    ),
-                  ),
-                )
-              ],
-            ),
-            SizedBox(height: 8),
             Text(
               "Available Seats: "+flight.numberOfBookableSeats.toString(),
               maxLines: 2,
@@ -90,7 +126,7 @@ class FlightTile extends StatelessWidget {
           ],
         ),
       ),
-    );
+    );*/
   }
 }
 

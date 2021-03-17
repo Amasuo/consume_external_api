@@ -52,7 +52,18 @@ class _FlightsPageState extends State<FlightsPage> {
             ),
           ),
           Expanded(
-            child: Obx(() {
+            child:Obx((){
+              if (flightController.isLoading.value)
+                return Center(child: CircularProgressIndicator());
+              else
+                return ListView.builder(
+                    itemCount: flightController.flightList.length,
+                    itemBuilder: (context, index) {
+                      return FlightTile(flightController.flightList[index]);
+                    }
+                );
+            })
+            /*child: Obx(() {
               if (flightController.isLoading.value)
                 return Center(child: CircularProgressIndicator());
               else
@@ -66,7 +77,7 @@ class _FlightsPageState extends State<FlightsPage> {
                   },
                   staggeredTileBuilder: (index) => StaggeredTile.fit(1),
                 );
-            }),
+            })*/,
           )
         ],
       ),
