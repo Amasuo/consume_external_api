@@ -55,7 +55,7 @@ class OfferTile extends StatelessWidget {
                           child: Text(
                               offer.price.total+' £',//+offer.price.currency,
                               style: TextStyle(
-                                  color: Colors.red,
+                                  color: Color(0xffcd0714),
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
                               ),

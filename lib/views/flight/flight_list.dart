@@ -17,73 +17,49 @@ class _FlightsPageState extends State<FlightsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'Flights List',
-                    style: TextStyle(
-                        fontFamily: 'avenir',
-                        fontSize: 32,
-                        fontWeight: FontWeight.w900),
-                  ),
+      body: Container(
+        color: Colors.grey[200],
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16,36,16,0),
+              child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Flights List',
+                        style: TextStyle(
+                            fontFamily: 'avenir',
+                            fontSize: 32,
+                            fontWeight: FontWeight.w900),
+                      ),
+                    ),
+                    IconButton(
+                        icon: Icon(Icons.view_list_rounded), onPressed: () {}),
+                    IconButton(icon: Icon(Icons.grid_view), onPressed: () {}),
+                  ],
                 ),
-                IconButton(
-                    icon: Icon(Icons.view_list_rounded), onPressed: () {}),
-                IconButton(icon: Icon(Icons.grid_view), onPressed: () {}),
-              ],
-            ),
-          ),
-          Expanded(
-            child: GetBuilder<FlightController>(
-              init: Get.put(FlightController()),
-              initState: (_) => FlightController.to.fetchFlights(widget.originLocationCode, widget.destinationLocationCode, widget.departureDate, widget.adults),
-              builder: (controller) {
-                if (controller.isLoading)
-                  return Center(child: CircularProgressIndicator());
-                else
-                  return ListView.builder(
-                      itemCount: controller.flightList.length,
-                      itemBuilder: (context, index) {
-                        return FlightTile(controller.flightList[index]);
-                      }
-                  );
-              },
-
-            /*child:Obx((){
-              if (flightController.isLoading.value)
-                return Center(child: CircularProgressIndicator());
-              else
-                return ListView.builder(
-                    itemCount: flightController.flightList.length,
-                    itemBuilder: (context, index) {
-                      return FlightTile(flightController.flightList[index]);
-                    }
-                );
-            }*/
-          )
-            /*child: Obx(() {
-              if (flightController.isLoading.value)
-                return Center(child: CircularProgressIndicator());
-              else
-                return StaggeredGridView.countBuilder(
-                  crossAxisCount: 2,
-                  itemCount: flightController.flightList.length,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  itemBuilder: (context, index) {
-                    return FlightTile(flightController.flightList[index]);
+              ),
+            Expanded(
+                child: GetBuilder<FlightController>(
+                  init: Get.put(FlightController()),
+                  initState: (_) => FlightController.to.fetchFlights(widget.originLocationCode, widget.destinationLocationCode, widget.departureDate, widget.adults),
+                  builder: (controller) {
+                    if (controller.isLoading)
+                      return Center(child: CircularProgressIndicator());
+                    else
+                      return ListView.builder(
+                          itemCount: controller.flightList.length,
+                          itemBuilder: (context, index) {
+                            return FlightTile(controller.flightList[index]);
+                          }
+                      );
                   },
-                  staggeredTileBuilder: (index) => StaggeredTile.fit(1),
-                );
-            })*/,
-          )
-        ],
-      ),
+                )
+            )
+          ],
+        ),
+      )
     );
   }
 }

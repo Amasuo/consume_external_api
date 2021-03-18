@@ -10,6 +10,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MyApp(),
+      theme: ThemeData(
+        colorScheme: ColorScheme.light(primary: const Color(0xffcd0714)),
+      ),
     );
   }
 }
@@ -30,7 +33,7 @@ class _MyAppState extends State<MyApp> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.red,
+            backgroundColor: Color(0xffcd0714),
             bottom: TabBar(
               indicatorColor: Colors.orange,
               tabs: [

@@ -230,21 +230,8 @@ class _FlightsInputState extends State<FlightsInput> {
                                 ),
                               ),
                             ),
-                            /*child: GetBuilder<FlightContentController>(
-                              builder: (controller) => RaisedButton(
-                                color: Colors.red,
-                                onPressed: (){
-                                  DateFormat dateformatter = DateFormat('yyyy-MM-dd');
-                                  String dateFormatted = dateformatter.format(date);
-                                  FlightContentController.flightContent=FlightsPage(origin, destination, dateFormatted, adultsNumber.toString());
-                                },
-                                child: Text(
-                                  'Search',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),*/
                             child: RaisedButton(
-                              color: Colors.red,
+                              color: Color(0xffcd0714),
                               onPressed: (){
                                 DateFormat dateformatter = DateFormat('yyyy-MM-dd');
                                 String dateFormatted = dateformatter.format(date);
@@ -265,6 +252,21 @@ class _FlightsInputState extends State<FlightsInput> {
                     ],
                   ),
                 )
+              ),
+              SizedBox(height: 10,),
+              Container(
+                color: Colors.white,
+                height: Get.height/6,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 10, top:10),
+                  child: Text(
+                    'Offers of the day',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

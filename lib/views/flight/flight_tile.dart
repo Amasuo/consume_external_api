@@ -73,7 +73,7 @@ class FlightTile extends StatelessWidget {
                           child: Text(
                             flight.price.total+' £',//+offer.price.currency,
                             style: TextStyle(
-                              color: Colors.red,
+                              color: Color(0xffcd0714),
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
