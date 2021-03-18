@@ -89,62 +89,6 @@ class FlightTile extends StatelessWidget {
         ),
       ),
     );
-    /*Card(
-      elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Available Seats: "+flight.numberOfBookableSeats.toString(),
-              maxLines: 2,
-              style:
-              TextStyle(fontFamily: 'avenir', fontWeight: FontWeight.w800),
-              overflow: TextOverflow.ellipsis,
-            ),SizedBox(height: 8),
-            Text(
-              "OneWay: "+flight.oneWay.toString(),
-              maxLines: 2,
-              style:
-              TextStyle(fontFamily: 'avenir', fontWeight: FontWeight.w800),
-              overflow: TextOverflow.ellipsis,
-            ),
-            SizedBox(height: 8),
-            Text(
-              "Price: "+flight.price.total.toString()+' '+flight.price.currency,
-              maxLines: 2,
-              style:
-              TextStyle(fontFamily: 'avenir', fontWeight: FontWeight.w800),
-              overflow: TextOverflow.ellipsis,
-            ),
-            /*if (hotel.rating != null)
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      hotel.rating.toString(),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Icon(
-                      Icons.star,
-                      size: 16,
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-              ),*/
-            SizedBox(height: 8),
-          ],
-        ),
-      ),
-    );*/
   }
 }
 

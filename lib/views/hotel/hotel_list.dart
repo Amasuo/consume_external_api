@@ -53,8 +53,8 @@ class _HotelsPageState extends State<HotelsPage> {
                       return StaggeredGridView.countBuilder(
                         crossAxisCount: 2,
                         itemCount: controller.hotelList.length,
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 5,
+                        mainAxisSpacing: 8,
                         itemBuilder: (context, index) {
                           return HotelTile(controller.hotelList[index].hotel);
                         },
@@ -63,22 +63,6 @@ class _HotelsPageState extends State<HotelsPage> {
                   },
                 )
             )
-              /*child: Obx(() {
-                if (hotelController.isLoading.value)
-                  return Center(child: CircularProgressIndicator());
-                else
-                  return StaggeredGridView.countBuilder(
-                    crossAxisCount: 2,
-                    itemCount: hotelController.hotelList.length,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                    itemBuilder: (context, index) {
-                      return HotelTile(hotelController.hotelList[index].hotel);
-                    },
-                    staggeredTileBuilder: (index) => StaggeredTile.fit(1),
-                  );
-              }
-              ),*/
           ],
         ),
       )

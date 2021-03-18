@@ -57,17 +57,6 @@ class _HotelOffersState extends State<HotelOffers> {
                     );
                 },
               ),
-              /*child:Obx((){
-                if (offersController.isLoading.value)
-                  return Center(child: CircularProgressIndicator());
-                else
-                  return ListView.builder(
-                      itemCount: offersController.offersList.length,
-                      itemBuilder: (context, index) {
-                        return OfferTile(offersController.offersList[index]);
-                      }
-                  );
-              })*/
             ),
           ],
         ),
