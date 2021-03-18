@@ -18,46 +18,45 @@ class _HotelOffersState extends State<HotelOffers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(''),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'Hotel Offers',
-                    style: TextStyle(
-                        fontFamily: 'avenir',
-                        fontSize: 32,
-                        fontWeight: FontWeight.w900),
+      body: Container(
+        color: Colors.grey[200],
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16,36,16,0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Hotel Offers',
+                      style: TextStyle(
+                          fontFamily: 'avenir',
+                          fontSize: 32,
+                          fontWeight: FontWeight.w900),
+                    ),
                   ),
-                ),
-                IconButton(
-                    icon: Icon(Icons.view_list_rounded), onPressed: () {}),
-                IconButton(icon: Icon(Icons.grid_view), onPressed: () {}),
-              ],
+                  IconButton(
+                      icon: Icon(Icons.view_list_rounded), onPressed: () {}),
+                  IconButton(icon: Icon(Icons.grid_view), onPressed: () {}),
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            child: GetBuilder<OffersController>(
-              init: Get.put(OffersController()),
-              initState: (_) => OffersController.to.fetchHotelOffers(widget.hotelId),
-              builder: (controller) {
-                if (controller.isLoading)
-                  return Center(child: CircularProgressIndicator());
-                else
-                  return ListView.builder(
-                      itemCount: controller.offersList.length,
-                      itemBuilder: (context, index) {
-                        return OfferTile(controller.offersList[index]);
-                      }
-                  );
-              },
-            ),
+            Expanded(
+              child: GetBuilder<OffersController>(
+                init: Get.put(OffersController()),
+                initState: (_) => OffersController.to.fetchHotelOffers(widget.hotelId),
+                builder: (controller) {
+                  if (controller.isLoading)
+                    return Center(child: CircularProgressIndicator());
+                  else
+                    return ListView.builder(
+                        itemCount: controller.offersList.length,
+                        itemBuilder: (context, index) {
+                          return OfferTile(controller.offersList[index]);
+                        }
+                    );
+                },
+              ),
               /*child:Obx((){
                 if (offersController.isLoading.value)
                   return Center(child: CircularProgressIndicator());
@@ -69,8 +68,9 @@ class _HotelOffersState extends State<HotelOffers> {
                       }
                   );
               })*/
-          ),
-        ],
+            ),
+          ],
+        ),
       )
     );
   }

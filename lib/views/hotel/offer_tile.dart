@@ -9,6 +9,7 @@ class OfferTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if(offer.room.typeEstimated.beds!=null)
     return Container(
       padding: EdgeInsets.fromLTRB(10,10,10,0),
       height: Get.height/7,
@@ -53,7 +54,7 @@ class OfferTile extends StatelessWidget {
                         Align(
                           alignment: Alignment.topRight,
                           child: Text(
-                              offer.price.total+' £',//+offer.price.currency,
+                              offer.price.total+' '+offer.price.currency,//+offer.price.currency,
                               style: TextStyle(
                                   color: Color(0xffcd0714),
                                   fontSize: 15,
@@ -71,5 +72,7 @@ class OfferTile extends StatelessWidget {
         ),
       ),
     );
+    else
+      return Container();
   }
 }

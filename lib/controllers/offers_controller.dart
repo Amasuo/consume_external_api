@@ -16,11 +16,9 @@ class OffersController extends GetxController {
       update();
       var offers = await RemoteServices.fetchHotelOffers(hotelId);
       if (offers != null){
-        print('fetch returned items');
         offersList.assignAll(offers.data.offers);
       }
     } finally {
-      print('terminated');
       isLoading=false;
       update();
     }

@@ -212,7 +212,7 @@ class Operating {
   String carrierCode;
 
   factory Operating.fromJson(Map<String, dynamic> json) => Operating(
-    carrierCode: json["carrierCode"],
+    carrierCode: '',//json["carrierCode"],
   );
 
   Map<String, dynamic> toJson() => {

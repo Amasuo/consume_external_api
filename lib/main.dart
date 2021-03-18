@@ -1,4 +1,5 @@
-import 'package:consume_external_api/views/flight/Flight_input.dart';
+import 'package:consume_external_api/views/flight/flight_input.dart';
+import 'package:consume_external_api/views/hotel/hotel_list.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -54,7 +55,7 @@ class _MyAppState extends State<MyApp> {
           body: TabBarView(
             children: [
               FlightsInput(),
-              Container()
+              HotelsPage('PAR')
             ],
           ),
         ),

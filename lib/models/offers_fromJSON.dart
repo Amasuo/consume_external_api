@@ -240,7 +240,7 @@ class OfferElement {
     checkInDate: DateTime.parse(json["checkInDate"]),
     checkOutDate: DateTime.parse(json["checkOutDate"]),
     rateCode: json["rateCode"],
-    commission: Commission.fromJson(json["commission"]),
+    commission: Commission.fromJson({}),//json["commission"]),
     boardType: json["boardType"],
     room: Room.fromJson(json["room"]),
     guests: Guests.fromJson(json["guests"]),
@@ -348,7 +348,7 @@ class Guarantee {
   AcceptedPayments acceptedPayments;
 
   factory Guarantee.fromJson(Map<String, dynamic> json) => Guarantee(
-    acceptedPayments: AcceptedPayments.fromJson(json["acceptedPayments"]),
+    acceptedPayments: AcceptedPayments.fromJson({}),//json["acceptedPayments"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -366,13 +366,13 @@ class AcceptedPayments {
   List<String> methods;
 
   factory AcceptedPayments.fromJson(Map<String, dynamic> json) => AcceptedPayments(
-    creditCards: List<String>.from(json["creditCards"].map((x) => x)),
-    methods: List<String>.from(json["methods"].map((x) => x)),
+    creditCards: List<String>.from([]),//json["creditCards"].map((x) => x)),
+    methods: List<String>.from([]),//json["methods"].map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {
-    "creditCards": List<dynamic>.from(creditCards.map((x) => x)),
-    "methods": List<dynamic>.from(methods.map((x) => x)),
+    "creditCards": List<dynamic>.from([]),//creditCards.map((x) => x)),
+    "methods": List<dynamic>.from([]),//methods.map((x) => x)),
   };
 }
 

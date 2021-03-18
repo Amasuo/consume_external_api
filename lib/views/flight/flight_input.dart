@@ -13,7 +13,7 @@ class _FlightsInputState extends State<FlightsInput> {
   DateTime date = DateTime.now();
   int adultsNumber=0;
   //Map<String,String> cities = {'SYD':'Sydney-Australia','BKK':'Bangkok-Thailand'};
-  List<String>cities = ['SYD','BKK'];
+  List<String>cities = ['LON','PAR'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,19 +57,19 @@ class _FlightsInputState extends State<FlightsInput> {
                               border: Border(
                                 left: BorderSide(
                                   color: Colors.orange[200],
-                                  width: 4,
+                                  width: 2,
                                 ),
                                 top: BorderSide(
                                   color: Colors.orange[200],
-                                  width: 4,
+                                  width: 2,
                                 ),
                                 right: BorderSide(
                                   color: Colors.orange[200],
-                                  width: 4,
+                                  width: 2,
                                 ),
                                 bottom: BorderSide(
                                   color: Colors.orange[200],
-                                  width: 2,
+                                  width: 1,
                                 ),
                               ),
                             ),
@@ -115,19 +115,19 @@ class _FlightsInputState extends State<FlightsInput> {
                               border: Border(
                                 left: BorderSide(
                                   color: Colors.orange[200],
-                                  width: 4,
+                                  width: 2,
                                 ),
                                 top: BorderSide(
                                   color: Colors.orange[200],
-                                  width: 2,
+                                  width: 1,
                                 ),
                                 right: BorderSide(
                                   color: Colors.orange[200],
-                                  width: 4,
+                                  width: 2,
                                 ),
                                 bottom: BorderSide(
                                   color: Colors.orange[200],
-                                  width: 2,
+                                  width: 1,
                                 ),
                               ),
                             ),
@@ -162,15 +162,15 @@ class _FlightsInputState extends State<FlightsInput> {
                               border: Border(
                                 left: BorderSide(
                                   color: Colors.orange[200],
-                                  width: 4,
+                                  width: 2,
                                 ),
                                 top: BorderSide(
                                   color: Colors.orange[200],
-                                  width: 2,
+                                  width: 1,
                                 ),
                                 right: BorderSide(
                                   color: Colors.orange[200],
-                                  width: 4,
+                                  width: 2,
                                 ),
                                 bottom: BorderSide(
                                   color: Colors.orange[200],
@@ -214,19 +214,19 @@ class _FlightsInputState extends State<FlightsInput> {
                               border: Border(
                                 left: BorderSide(
                                   color: Colors.orange[200],
-                                  width: 4,
+                                  width: 2,
                                 ),
                                 top: BorderSide(
                                   color: Colors.orange[200],
-                                  width: 2,
+                                  width: 1,
                                 ),
                                 right: BorderSide(
                                   color: Colors.orange[200],
-                                  width: 4,
+                                  width: 2,
                                 ),
                                 bottom: BorderSide(
                                   color: Colors.orange[200],
-                                  width: 4,
+                                  width: 2,
                                 ),
                               ),
                             ),
