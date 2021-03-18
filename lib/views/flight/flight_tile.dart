@@ -11,7 +11,7 @@ class FlightTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(10,10,10,0),
-      height: Get.height/7,
+      height: Get.height/6,
       width: double.maxFinite,
       child: Card(
         elevation: 5,
@@ -46,6 +46,24 @@ class FlightTile extends StatelessWidget {
                                     fontWeight: FontWeight.bold
                                 ),
                               ),
+                              if(flight.oneWay)
+                              Text(
+                                'one way',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold
+                                ),
+                              )
+                              else
+                                Text(
+                                  'Round-trip',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                ),
                             ],
                           ),
                         ),
@@ -55,7 +73,7 @@ class FlightTile extends StatelessWidget {
                           child: Text(
                             flight.price.total+' £',//+offer.price.currency,
                             style: TextStyle(
-                              color: Colors.cyan,
+                              color: Colors.red,
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),

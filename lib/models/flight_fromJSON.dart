@@ -414,10 +414,10 @@ class Dictionaries {
   Carriers carriers;
 
   factory Dictionaries.fromJson(Map<String, dynamic> json) => Dictionaries(
-    locations: Map.from(json["locations"]).map((k, v) => MapEntry<String, Location>(k, Location.fromJson(v))),
-    aircraft: Map.from(json["aircraft"]).map((k, v) => MapEntry<String, String>(k, v)),
-    currencies: Currencies.fromJson(json["currencies"]),
-    carriers: Carriers.fromJson(json["carriers"]),
+    locations: {},//Map.from(json["locations"]).map((k, v) => MapEntry<String, Location>(k, Location.fromJson(v))),
+    aircraft: {},//Map.from(json["aircraft"]).map((k, v) => MapEntry<String, String>(k, v)),
+    currencies: Currencies.fromJson({}),//json["currencies"]),
+    carriers: Carriers.fromJson({}),//json["carriers"]),
   );
 
   Map<String, dynamic> toJson() => {

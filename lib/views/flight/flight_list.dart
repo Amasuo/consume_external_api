@@ -1,8 +1,7 @@
 import 'package:consume_external_api/controllers/flight_controller.dart';
+import 'package:consume_external_api/views/flight/flight_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
-import 'flight_tile.dart';
 
 class FlightsPage extends StatefulWidget {
   String originLocationCode, destinationLocationCode, departureDate, adults;
@@ -16,20 +15,8 @@ class _FlightsPageState extends State<FlightsPage> {
   FlightController flightController;
 
   @override
-  void initState() {
-    flightController = Get.put(FlightController(widget.originLocationCode, widget.destinationLocationCode, widget.departureDate, widget.adults));
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: Icon(
-          Icons.arrow_back_ios,
-        ),
-      ),
       body: Column(
         children: [
           Padding(
@@ -38,7 +25,7 @@ class _FlightsPageState extends State<FlightsPage> {
               children: [
                 Expanded(
                   child: Text(
-                    'FlightsList',
+                    'Flights List',
                     style: TextStyle(
                         fontFamily: 'avenir',
                         fontSize: 32,
@@ -52,7 +39,22 @@ class _FlightsPageState extends State<FlightsPage> {
             ),
           ),
           Expanded(
-            child:Obx((){
+            child: GetBuilder<FlightController>(
+              init: Get.put(FlightController()),
+              initState: (_) => FlightController.to.fetchFlights(widget.originLocationCode, widget.destinationLocationCode, widget.departureDate, widget.adults),
+              builder: (controller) {
+                if (controller.isLoading)
+                  return Center(child: CircularProgressIndicator());
+                else
+                  return ListView.builder(
+                      itemCount: controller.flightList.length,
+                      itemBuilder: (context, index) {
+                        return FlightTile(controller.flightList[index]);
+                      }
+                  );
+              },
+
+            /*child:Obx((){
               if (flightController.isLoading.value)
                 return Center(child: CircularProgressIndicator());
               else
@@ -62,7 +64,8 @@ class _FlightsPageState extends State<FlightsPage> {
                       return FlightTile(flightController.flightList[index]);
                     }
                 );
-            })
+            }*/
+          )
             /*child: Obx(() {
               if (flightController.isLoading.value)
                 return Center(child: CircularProgressIndicator());

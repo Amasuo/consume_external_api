@@ -1,29 +1,26 @@
 import 'package:consume_external_api/models/flight_fromJSON.dart';
 import 'package:consume_external_api/services/remote_services.dart';
 import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 
 class FlightController extends GetxController {
-  var isLoading = true.obs;
+  var isLoading = true;
   var flightList = List<Datum>().obs;
-  String originLocationCode, destinationLocationCode, departureDate, adults;
 
-  FlightController(this.originLocationCode, this.destinationLocationCode, this.departureDate, this.adults);
+  static FlightController get to => Get.find();
 
-  @override
-  void onInit() {
-    fetchFlights();
-    super.onInit();
-  }
 
-  void fetchFlights() async {
+  void fetchFlights(String originLocationCode, String destinationLocationCode, String departureDate, String adults) async {
     try{
-      isLoading(true);
+      isLoading=true;
+      update();
       var flights = await RemoteServices.fetchFlights(originLocationCode, destinationLocationCode, departureDate, adults);
       if (flights != null){
         flightList.assignAll(flights.data.cast<Datum>());
       }
     } finally {
-      isLoading(false);
+      isLoading=false;
+      update();
     }
   }
 }

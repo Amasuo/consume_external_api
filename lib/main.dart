@@ -1,5 +1,4 @@
-import 'package:consume_external_api/views/flight/flight_list.dart';
-import 'package:consume_external_api/views/hotel/hotel_list.dart';
+import 'package:consume_external_api/views/flight/Flight_input.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,41 +13,49 @@ class App extends StatelessWidget {
     );
   }
 }
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
-class MyApp extends StatelessWidget {
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Test External APIs'),
-      ),
-      body: ListView(
-        children: [
-          Center(
-            child: ElevatedButton(
-              child: Text('Hotels Search'),
-              onPressed: (){
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HotelsPage('LON')),
-                );
-              },
+    return MaterialApp(
+      home: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.red,
+            bottom: TabBar(
+              indicatorColor: Colors.orange,
+              tabs: [
+                Tab(
+                  icon: Icon(Icons.airplanemode_on_rounded),
+                  text: 'Flights',
+                ),
+                Tab(
+                  icon: Icon(Icons.hotel_outlined),
+                  text: 'Hotels',
+                )
+              ],
+            ),
+            title: Center(
+              child: Text('Test APIs'),
             ),
           ),
-          Center(
-            child: ElevatedButton(
-              child: Text('Flights Search'),
-              onPressed: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => FlightsPage('SYD', 'BKK', '2021-11-01', '1')),
-                );
-              },
-            ),
+          body: TabBarView(
+            children: [
+              FlightsInput(),
+              Container()
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
 }
-
