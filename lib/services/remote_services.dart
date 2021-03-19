@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:consume_external_api/models/airline_fromJSON.dart';
 import 'package:http/http.dart' as http;
 import 'package:consume_external_api/models/flight_fromJSON.dart';
 import 'package:consume_external_api/models/hotel_fromJSON.dart' as hotelModel;
@@ -56,6 +57,19 @@ class RemoteServices{
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return flightFromJson(jsonString);
+    } else {
+      return null;
+    }
+  }
+
+  static Future<Airline> getAirline(String airlineCode) async {
+    String token = await getToken();
+    String url1 = "https://test.api.amadeus.com/v1/reference-data/airlines?airlineCodes="+airlineCode;
+    Map<String, String> headers = {"Authorization": "Bearer "+token, };
+    var response = await client.get(url1,headers: headers);
+    if (response.statusCode == 200) {
+      var jsonString = response.body;
+      return airlineFromJson(jsonString);
     } else {
       return null;
     }

@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:consume_external_api/controllers/flight_controller.dart';
 import 'package:consume_external_api/views/flight/flight_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class FlightsPage extends StatefulWidget {
   String originLocationCode, destinationLocationCode, departureDate, adults;
   FlightsPage(this.originLocationCode, this.destinationLocationCode, this.departureDate, this.adults);
+
 
   @override
   _FlightsPageState createState() => _FlightsPageState();
@@ -13,10 +17,20 @@ class FlightsPage extends StatefulWidget {
 
 class _FlightsPageState extends State<FlightsPage> {
   FlightController flightController;
+  List airlines;
+
+  Future<String> loadAirlines() async {
+    var jsonText = await rootBundle.loadString('assets/airlines');
+    setState(() {
+      airlines = json.decode(jsonText);
+      print('success');
+      return 'success' ;
+    });
+  }
 
   @override
   void initState() {
-    print(widget.destinationLocationCode);
+    this.loadAirlines();
     super.initState();
   }
 
@@ -57,7 +71,7 @@ class _FlightsPageState extends State<FlightsPage> {
                       return ListView.builder(
                           itemCount: controller.flightList.length,
                           itemBuilder: (context, index) {
-                            return FlightTile(controller.flightList[index]);
+                            return FlightTile(controller.flightList[index],airlines);
                           }
                       );
                   },

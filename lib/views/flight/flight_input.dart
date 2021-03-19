@@ -90,7 +90,6 @@ class _FlightsInputState extends State<FlightsInput> {
                                     onChanged: (String value){
                                       setState(() {
                                         FlightsInput.origin = value;
-                                        print(FlightsInput.origin);
                                       });
                                     },
                                     hint: Text(FlightsInput.origin),
@@ -106,7 +105,6 @@ class _FlightsInputState extends State<FlightsInput> {
                                     onChanged: (String value){
                                       setState(() {
                                         FlightsInput.destination = value;
-                                        print(FlightsInput.destination);
                                       });
                                     },
                                     hint: Text(FlightsInput.destination),
