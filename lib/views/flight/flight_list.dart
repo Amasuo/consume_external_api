@@ -15,6 +15,12 @@ class _FlightsPageState extends State<FlightsPage> {
   FlightController flightController;
 
   @override
+  void initState() {
+    print(widget.destinationLocationCode);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(

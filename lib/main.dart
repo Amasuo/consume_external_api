@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
           body: TabBarView(
             children: [
               FlightsInput(),
-              HotelsPage('PAR')
+              HotelsPage()
             ],
           ),
         ),

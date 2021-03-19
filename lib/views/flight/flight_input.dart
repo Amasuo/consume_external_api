@@ -4,16 +4,19 @@ import 'package:intl/intl.dart';
 import 'flight_list.dart';
 
 class FlightsInput extends StatefulWidget {
+  static String origin = "origin";
+  static String destination = "destination";
   @override
   _FlightsInputState createState() => _FlightsInputState();
 }
 
 class _FlightsInputState extends State<FlightsInput> {
-  String origin="origin",destination="destination";
+  //String origin="origin",destination="destination";
   DateTime date = DateTime.now();
   int adultsNumber=0;
   //Map<String,String> cities = {'SYD':'Sydney-Australia','BKK':'Bangkok-Thailand'};
   List<String>cities = ['LON','PAR'];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,10 +89,11 @@ class _FlightsInputState extends State<FlightsInput> {
                                     }).toList(),
                                     onChanged: (String value){
                                       setState(() {
-                                        origin = value;
+                                        FlightsInput.origin = value;
+                                        print(FlightsInput.origin);
                                       });
                                     },
-                                    hint: Text(origin),
+                                    hint: Text(FlightsInput.origin),
                                   ),
                                   SizedBox(width: Get.width/6,),
                                   DropdownButton(
@@ -101,10 +105,11 @@ class _FlightsInputState extends State<FlightsInput> {
                                     }).toList(),
                                     onChanged: (String value){
                                       setState(() {
-                                        destination = value;
+                                        FlightsInput.destination = value;
+                                        print(FlightsInput.destination);
                                       });
                                     },
-                                    hint: Text(destination),
+                                    hint: Text(FlightsInput.destination),
                                   ),
                                 ],
                               ),
@@ -237,7 +242,7 @@ class _FlightsInputState extends State<FlightsInput> {
                                 String dateFormatted = dateformatter.format(date);
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => FlightsPage(origin, destination, dateFormatted, adultsNumber.toString())),
+                                  MaterialPageRoute(builder: (context) => FlightsPage(FlightsInput.origin, FlightsInput.destination, dateFormatted, adultsNumber.toString())),
                                 );
                               },
                               child: Text(

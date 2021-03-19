@@ -1,4 +1,5 @@
 import 'package:consume_external_api/controllers/hotel_controller.dart';
+import 'package:consume_external_api/views/flight/flight_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
@@ -7,7 +8,7 @@ import 'hotel_tile.dart';
 
 class HotelsPage extends StatefulWidget {
   String cityCode;
-  HotelsPage(this.cityCode);
+
 
   @override
   _HotelsPageState createState() => _HotelsPageState();
@@ -15,6 +16,12 @@ class HotelsPage extends StatefulWidget {
 
 class _HotelsPageState extends State<HotelsPage> {
   HotelController hotelController;
+
+  @override
+  void initState() {
+    widget.cityCode = FlightsInput.destination;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +49,7 @@ class _HotelsPageState extends State<HotelsPage> {
                 ],
               ),
             ),
+            if(widget.cityCode != null && widget.cityCode!="destination")
             Expanded(
                 child: GetBuilder<HotelController>(
                   init: Get.put(HotelController()),
@@ -63,6 +71,8 @@ class _HotelsPageState extends State<HotelsPage> {
                   },
                 )
             )
+            else
+              Text('provide destination please'),
           ],
         ),
       )
