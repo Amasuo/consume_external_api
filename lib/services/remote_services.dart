@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:consume_external_api/models/airline_fromJSON.dart';
+import 'package:consume_external_api/models/city_fromJSON.dart';
 import 'package:http/http.dart' as http;
 import 'package:consume_external_api/models/flight_fromJSON.dart';
 import 'package:consume_external_api/models/hotel_fromJSON.dart' as hotelModel;
 import 'package:consume_external_api/models/offers_fromJSON.dart' as offerModel;
-
 
 
 class RemoteServices{
@@ -64,12 +64,33 @@ class RemoteServices{
 
   static Future<Airline> getAirline(String airlineCode) async {
     String token = await getToken();
-    String url1 = "https://test.api.amadeus.com/v1/reference-data/airlines?airlineCodes="+airlineCode;
+    String url = "https://test.api.amadeus.com/v1/reference-data/airlines?airlineCodes="+airlineCode;
     Map<String, String> headers = {"Authorization": "Bearer "+token, };
-    var response = await client.get(url1,headers: headers);
+    var response = await client.get(url,headers: headers);
     if (response.statusCode == 200) {
       var jsonString = response.body;
       return airlineFromJson(jsonString);
+    } else {
+      return null;
+    }
+  }
+
+  static Future<String> getCityCode(String location) async {
+    var string = location.split('-');
+    var city = string[0];
+    var country = string[1];
+    print(city);
+    print(country);
+    String token = await getToken();
+    String url = "https://test.api.amadeus.com/v1/reference-data/locations?subType=CITY&keyword="+city+"&page[limit]=5";
+    Map<String, String> headers = {"Authorization": "Bearer "+token, };
+    var response = await client.get(url,headers: headers);
+    if (response.statusCode == 200) {
+      var jsonString = response.body;
+      var temp = cityFromJson(jsonString).data.firstWhere((element) => element.address.cityName==city.toUpperCase() , orElse: null);
+      if (temp != null){
+        return temp.address.cityCode;
+      }
     } else {
       return null;
     }

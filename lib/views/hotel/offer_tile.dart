@@ -32,7 +32,7 @@ class OfferTile extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                offer.checkInDate.day.toString()+'-'+offer.checkInDate.month.toString()+'-'+offer.checkInDate.year.toString()+' - '+ offer.checkOutDate.day.toString()+'-'+offer.checkOutDate.month.toString()+'-'+offer.checkOutDate.year.toString(),
+                                offer.checkInDate.day.toString()+'/'+offer.checkInDate.month.toString()+' - '+ offer.checkOutDate.day.toString()+'/'+offer.checkOutDate.month.toString(),
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.grey,

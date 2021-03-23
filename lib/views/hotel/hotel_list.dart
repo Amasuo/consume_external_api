@@ -9,7 +9,6 @@ import 'hotel_tile.dart';
 class HotelsPage extends StatefulWidget {
   String cityCode;
 
-
   @override
   _HotelsPageState createState() => _HotelsPageState();
 }

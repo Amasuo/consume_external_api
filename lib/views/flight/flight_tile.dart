@@ -13,16 +13,17 @@ class FlightTile extends StatefulWidget {
 }
 
 class _FlightTileState extends State<FlightTile> {
-  int index;
+  int ind;
 
   @override
   void initState() {
-    index = widget.airlines.indexWhere((element) => element['iata']==widget.flight.validatingAirlineCodes.first);
+    ind = widget.airlines.indexWhere((element) => element['iata'] == widget.flight.validatingAirlineCodes.first);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    if(ind >0)
     return Container(
       padding: EdgeInsets.fromLTRB(10,10,10,0),
       height: Get.height/5,
@@ -79,15 +80,20 @@ class _FlightTileState extends State<FlightTile> {
                                   ),
                                 ),
                               SizedBox(height: 10,),
-                              Text(
-                                //'Airline: '+widget.flight.validatingAirlineCodes.first,
-                                'Airline: '+ widget.airlines[index]['name'],
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold
+                              Container(
+                                width: Get.width/2,
+                                child: Text(
+                                  //'Airline: '+widget.flight.validatingAirlineCodes.first,
+                                  'Airline: '+ widget.airlines[ind]['name'],
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold
+                                  ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -113,6 +119,8 @@ class _FlightTileState extends State<FlightTile> {
         ),
       ),
     );
+    else
+      return Container();
   }
 }
 

@@ -23,7 +23,6 @@ class _FlightsPageState extends State<FlightsPage> {
     var jsonText = await rootBundle.loadString('assets/airlines');
     setState(() {
       airlines = json.decode(jsonText);
-      print('success');
       return 'success' ;
     });
   }

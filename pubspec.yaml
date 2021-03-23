@@ -27,6 +27,10 @@ dependencies:
   get:
   flutter_staggered_grid_view:
   intl:
+  flutter_google_places: ^0.2.4
+  google_maps_webservice: ^0.0.16
+  requests:
+  uuid:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
