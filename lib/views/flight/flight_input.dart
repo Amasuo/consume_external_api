@@ -90,52 +90,6 @@ class _FlightsInputState extends State<FlightsInput> {
                               fontSize: 15,
                             ),
                           ),
-                          ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: _placeListOrigin.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                onTap: () async {
-                                  origin = _placeListOrigin[index]["structured_formatting"]["main_text"] + "-" + _placeListOrigin[index]["structured_formatting"]["secondary_text"];
-                                  originController.text = origin;
-
-                                  var orig = await service.RemoteServices.getCityCode(originController.text);
-                                  setState(() {
-                                    FlightsInput.origin = orig;
-                                  });
-                                  setState(() {
-                                    _placeListOrigin=[];
-                                  });
-                                  FocusScope.of(context).unfocus();
-                                },
-                                title: Text(_placeListOrigin[index]["description"]),
-                              );
-                            },
-                          ),
-                          ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: _placeListDestination.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                onTap: () async {
-                                  destination = _placeListDestination[index]["structured_formatting"]["main_text"] + "-" + _placeListDestination[index]["structured_formatting"]["secondary_text"];
-                                  destinationController.text = destination;
-
-                                  var orig = await service.RemoteServices.getCityCode(destinationController.text);
-                                  setState(() {
-                                    FlightsInput.destination = orig;
-                                  });
-                                  setState(() {
-                                    _placeListDestination=[];
-                                  });
-                                  FocusScope.of(context).unfocus();
-                                },
-                                title: Text(_placeListDestination[index]["description"]),
-                              );
-                            },
-                          ),
                           Padding(
                               padding: EdgeInsets.only(left: 15,top: 20,right: 15,bottom: 20),
                               child: Column(
@@ -164,22 +118,39 @@ class _FlightsInputState extends State<FlightsInput> {
                                         ),
                                       ),
                                     ),
-                                    child: Row(
-                                      children: [
-                                        Icon(Icons.search),
-                                        SizedBox(width: Get.width/9,),
-                                        Expanded(
-                                          child: TextField(
-                                            controller: originController,
-                                            decoration: InputDecoration(
-                                              hintText: origin,
-                                              filled: true,
-                                              border: InputBorder.none,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                    child: TextField(
+                                      textAlign: TextAlign.center,
+                                      controller: originController,
+                                      decoration: InputDecoration(
+                                          fillColor: Colors.white,
+                                          hintText: origin,
+                                          filled: true,
+                                          border: InputBorder.none,
+                                          prefixIcon: Icon(Icons.search)
+                                      ),
                                     ),
+                                  ),
+                                  ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: _placeListOrigin.length,
+                                    itemBuilder: (context, index) {
+                                      return ListTile(
+                                        onTap: () async {
+                                          origin = _placeListOrigin[index]["structured_formatting"]["main_text"] + "-" + _placeListOrigin[index]["structured_formatting"]["secondary_text"];
+                                          originController.text = origin;
+
+                                          var orig = await service.RemoteServices.getCityCode(originController.text);
+                                          setState(() {
+                                            FlightsInput.origin = orig;
+                                          });
+                                          setState(() {
+                                            _placeListOrigin=[];
+                                          });
+                                          FocusScope.of(context).unfocus();
+                                        },
+                                        title: Text(_placeListOrigin[index]["description"]),
+                                      );
+                                    },
                                   ),
                                   Container(
                                     height: Get.height/12,
@@ -191,7 +162,7 @@ class _FlightsInputState extends State<FlightsInput> {
                                         ),
                                         top: BorderSide(
                                           color: Colors.orange[200],
-                                          width: 2,
+                                          width: 1,
                                         ),
                                         right: BorderSide(
                                           color: Colors.orange[200],
@@ -203,22 +174,39 @@ class _FlightsInputState extends State<FlightsInput> {
                                         ),
                                       ),
                                     ),
-                                    child: Row(
-                                      children: [
-                                        Icon(Icons.search),
-                                        SizedBox(width: Get.width/9,),
-                                        Expanded(
-                                          child: TextField(
-                                            controller: destinationController,
-                                            decoration: InputDecoration(
-                                              hintText: destination,
-                                              filled: true,
-                                              border: InputBorder.none,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                    child: TextField(
+                                      textAlign: TextAlign.center,
+                                      controller: destinationController,
+                                      decoration: InputDecoration(
+                                          fillColor: Colors.white,
+                                          hintText: destination,
+                                          filled: true,
+                                          border: InputBorder.none,
+                                          prefixIcon: Icon(Icons.search)
+                                      ),
                                     ),
+                                  ),
+                                  ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: _placeListDestination.length,
+                                    itemBuilder: (context, index) {
+                                      return ListTile(
+                                        onTap: () async {
+                                          destination = _placeListDestination[index]["structured_formatting"]["main_text"] + "-" + _placeListDestination[index]["structured_formatting"]["secondary_text"];
+                                          destinationController.text = destination;
+
+                                          var orig = await service.RemoteServices.getCityCode(destinationController.text);
+                                          setState(() {
+                                            FlightsInput.destination = orig;
+                                          });
+                                          setState(() {
+                                            _placeListDestination=[];
+                                          });
+                                          FocusScope.of(context).unfocus();
+                                        },
+                                        title: Text(_placeListDestination[index]["description"]),
+                                      );
+                                    },
                                   ),
                                   Container(
                                     height: Get.height/12,
@@ -253,26 +241,25 @@ class _FlightsInputState extends State<FlightsInput> {
                                               },
                                             child: Row(
                                               children: [
-                                                Icon(Icons.date_range_outlined),
+                                                SizedBox(width: 10,),
+                                                Icon(Icons.date_range_outlined,color: Colors.grey,),
                                                 Container(
                                                   child: Row(
                                                     children: [
-                                                      SizedBox(width: 13,),
-                                                      SizedBox(width: Get.width/5,),
+                                                      SizedBox(width: Get.width/3.8,),
                                                       Text(
                                                         date.day.toString()+'-'+date.month.toString()+'-'+date.year.toString(),
                                                         style: TextStyle(
-                                                            fontSize: 15,
+                                                            fontSize: 17,
                                                             fontWeight: FontWeight.bold
                                                         ),
                                                       ),
-                                                      SizedBox(width: Get.width/4,),
                                                     ],
                                                   ),
                                                 ),
                                               ],
                                             )
-                                        )
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -300,8 +287,9 @@ class _FlightsInputState extends State<FlightsInput> {
                                     ),
                                     child: Row(
                                       children: [
-                                        Icon(Icons.person_outline),
-                                        SizedBox(width: Get.width/5,),
+                                        SizedBox(width: 10,),
+                                        Icon(Icons.person_outline,color: Colors.grey,),
+                                        SizedBox(width: Get.width/4.5,),
                                         Row(
                                           children: [
                                             IconButton(

@@ -15,7 +15,10 @@ class HotelController extends GetxController {
       isLoading=true;
       update();
       var hotels = await RemoteServices.fetchHotels(cityCode, checkInDate);
-      if (hotels != null){
+      if (hotels == null){
+        hotelList.assignAll([]);
+      }
+      else {
         hotelList.assignAll(hotels.data);
       }
     } finally {

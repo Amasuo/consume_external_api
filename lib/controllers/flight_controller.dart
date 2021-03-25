@@ -17,7 +17,10 @@ class FlightController extends GetxController {
       isLoading=true;
       update();
       var flights = await RemoteServices.fetchFlights(originLocationCode, destinationLocationCode, departureDate, adults);
-      if (flights != null){
+      if (flights == null) {
+        flightList.assignAll([]);
+      }
+      else {
         flightList.assignAll(flights.data.cast<Flight.Datum>());
       }
     } finally {
