@@ -157,7 +157,7 @@ class Contact {
 
   factory Contact.fromJson(Map<String, dynamic> json) => Contact(
     phone: "",//json["phone"],
-    fax: json["fax"],
+    fax: "",//json["fax"],
     email: json["email"],
   );
 

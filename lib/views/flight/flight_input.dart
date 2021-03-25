@@ -63,6 +63,7 @@ class _FlightsInputState extends State<FlightsInput> {
   }
 
   void getSuggestionOrigin(String input) async {
+    _placeListDestination = [];
     String kPLACES_API_KEY = kGoogleApiKey;
     String type = '(regions)';
     String url = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&key=$kPLACES_API_KEY&sessiontoken=$_sessionToken";
@@ -70,13 +71,13 @@ class _FlightsInputState extends State<FlightsInput> {
     if (response.statusCode == 200) {
     setState(() {
     _placeListOrigin = json.decode(response.content())['predictions'];
-    print(_placeListOrigin);
     });
     } else {
     throw Exception('Failed to load predictions');
     }
   }
   void getSuggestionDestination(String input) async {
+    _placeListOrigin = [];
     String kPLACES_API_KEY = kGoogleApiKey;
     String type = '(regions)';
     String url = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&key=$kPLACES_API_KEY&sessiontoken=$_sessionToken";
@@ -84,7 +85,6 @@ class _FlightsInputState extends State<FlightsInput> {
     if (response.statusCode == 200) {
       setState(() {
         _placeListDestination = json.decode(response.content())['predictions'];
-        print(_placeListDestination);
       });
     } else {
       throw Exception('Failed to load predictions');
@@ -136,11 +136,10 @@ class _FlightsInputState extends State<FlightsInput> {
                                   setState(() {
                                     FlightsInput.origin = orig;
                                   });
-
                                   setState(() {
                                     _placeListOrigin=[];
-                                    print(origin);
                                   });
+                                  FocusScope.of(context).unfocus();
                                 },
                                 title: Text(_placeListOrigin[index]["description"]),
                               );
@@ -163,8 +162,8 @@ class _FlightsInputState extends State<FlightsInput> {
 
                                   setState(() {
                                     _placeListDestination=[];
-                                    print(destination);
                                   });
+                                  FocusScope.of(context).unfocus();
                                 },
                                 title: Text(_placeListDestination[index]["description"]),
                               );
@@ -400,7 +399,7 @@ class _FlightsInputState extends State<FlightsInput> {
                       ),
                     )
                 ),
-                SizedBox(height: 10,),
+                /*SizedBox(height: 10,),
                 Container(
                   color: Colors.white,
                   height: Get.height/6,
@@ -414,7 +413,7 @@ class _FlightsInputState extends State<FlightsInput> {
                       ),
                     ),
                   ),
-                ),
+                ),*/
               ],
             ),
           ),

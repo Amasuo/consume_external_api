@@ -67,12 +67,32 @@ class _FlightsPageState extends State<FlightsPage> {
                     if (controller.isLoading)
                       return Center(child: CircularProgressIndicator());
                     else
-                      return ListView.builder(
-                          itemCount: controller.flightList.length,
-                          itemBuilder: (context, index) {
-                            return FlightTile(controller.flightList[index],airlines);
-                          }
+                      if (controller.flightList.length != 0)
+                        return ListView.builder(
+                            itemCount: controller.flightList.length,
+                            itemBuilder: (context, index) {
+                              return FlightTile(controller.flightList[index],airlines);
+                            }
                       );
+                      else
+                        return AlertDialog(
+                          title: Text('No flights'),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: <Widget>[
+                                Text('No flights found!'),
+                              ],
+                            ),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('OK'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
                   },
                 )
             )

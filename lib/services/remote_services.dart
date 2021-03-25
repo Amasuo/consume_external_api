@@ -87,12 +87,15 @@ class RemoteServices{
     var response = await client.get(url,headers: headers);
     if (response.statusCode == 200) {
       var jsonString = response.body;
-      var temp = cityFromJson(jsonString).data.firstWhere((element) => element.address.cityName==city.toUpperCase() , orElse: null);
-      if (temp != null){
-        return temp.address.cityCode;
+      try{
+        var temp = cityFromJson(jsonString).data.firstWhere((element) => element.address.cityName==city.toUpperCase() , orElse: null);
+        if (temp != null){
+          return temp.address.cityCode;
+        }
+      } catch(e) {
+        print("no city found");
       }
-    } else {
-      return null;
+      return "";
     }
   }
 

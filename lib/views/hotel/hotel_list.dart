@@ -48,7 +48,7 @@ class _HotelsPageState extends State<HotelsPage> {
                 ],
               ),
             ),
-            if(widget.cityCode != null && widget.cityCode!="destination")
+            if(widget.cityCode != null && widget.cityCode != "destination")
             Expanded(
                 child: GetBuilder<HotelController>(
                   init: Get.put(HotelController()),
@@ -57,21 +57,41 @@ class _HotelsPageState extends State<HotelsPage> {
                     if (controller.isLoading)
                       return Center(child: CircularProgressIndicator());
                     else
-                      return StaggeredGridView.countBuilder(
-                        crossAxisCount: 2,
-                        itemCount: controller.hotelList.length,
-                        crossAxisSpacing: 5,
-                        mainAxisSpacing: 8,
-                        itemBuilder: (context, index) {
-                          return HotelTile(controller.hotelList[index].hotel);
-                        },
-                        staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                      if (controller.hotelList.length != 0)
+                        return StaggeredGridView.countBuilder(
+                          crossAxisCount: 2,
+                          itemCount: controller.hotelList.length,
+                          crossAxisSpacing: 5,
+                          mainAxisSpacing: 8,
+                          itemBuilder: (context, index) {
+                            return HotelTile(controller.hotelList[index].hotel);
+                          },
+                          staggeredTileBuilder: (index) => StaggeredTile.fit(1),
                       );
+                      else
+                        return Text("No Hotels Found");/*AlertDialog(
+                          title: Text('No Hotels'),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: <Widget>[
+                                Text('No hotels found!'),
+                              ],
+                            ),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('OK'),
+                              onPressed: () {
+                                Navigator.of(context, rootNavigator: true).pop();
+                              },
+                            ),
+                          ],
+                        );*/
                   },
                 )
             )
             else
-              Text('provide destination please'),
+              Text('Provide destination please'),
           ],
         ),
       )
