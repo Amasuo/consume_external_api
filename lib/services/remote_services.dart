@@ -23,9 +23,10 @@ class RemoteServices{
     }
   }
 
-   static Future<hotelModel.Hotel> fetchHotels(String cityCode) async{
+   static Future<hotelModel.Hotel> fetchHotels(String cityCode, String checkInDate) async{
     String token = await getToken();
-    String url = "https://test.api.amadeus.com/v2/shopping/hotel-offers?cityCode=$cityCode";
+    print(checkInDate);
+    String url = "https://test.api.amadeus.com/v2/shopping/hotel-offers?cityCode=$cityCode&checkInDate=$checkInDate";
     Map<String, String> headers = {"Authorization": "Bearer "+token, };
     var response = await client.get(url,headers: headers);
     if (response.statusCode == 200) {
@@ -36,9 +37,9 @@ class RemoteServices{
     }
   }
 
-  static Future<offerModel.Offer> fetchHotelOffers(String hotelId) async {
+  static Future<offerModel.Offer> fetchHotelOffers(String hotelId, String checkInDate) async {
     String token = await getToken();
-    String url = "https://test.api.amadeus.com/v2/shopping/hotel-offers/by-hotel?hotelId=$hotelId";
+    String url = "https://test.api.amadeus.com/v2/shopping/hotel-offers/by-hotel?hotelId=$hotelId&checkInDate=$checkInDate";
     Map<String, String> headers = {"Authorization": "Bearer "+token, };
     var response = await client.get(url,headers: headers);
     if (response.statusCode == 200) {

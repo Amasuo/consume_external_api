@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 
 class HotelTile extends StatelessWidget {
   final HotelClass hotel;
-
-  const HotelTile(this.hotel);
+  final String checkInDate;
+  const HotelTile(this.hotel,this.checkInDate);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class HotelTile extends StatelessWidget {
       onTap: (){
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HotelOffers(hotel.hotelId)),
+          MaterialPageRoute(builder: (context) => HotelOffers(hotel.hotelId,checkInDate)),
         );
       },
       child: Container(

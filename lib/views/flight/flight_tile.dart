@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:consume_external_api/models/flight_fromJSON.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 
 class FlightTile extends StatefulWidget {

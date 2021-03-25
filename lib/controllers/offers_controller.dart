@@ -10,11 +10,11 @@ class OffersController extends GetxController {
   static OffersController get to => Get.find();
 
 
-  void fetchHotelOffers(String hotelId) async {
+  void fetchHotelOffers(String hotelId, String checkInDate) async {
     try{
       isLoading=true;
       update();
-      var offers = await RemoteServices.fetchHotelOffers(hotelId);
+      var offers = await RemoteServices.fetchHotelOffers(hotelId,checkInDate);
       if (offers != null){
         offersList.assignAll(offers.data.offers);
       }

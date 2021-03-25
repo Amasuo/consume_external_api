@@ -6,8 +6,8 @@ import 'offer_tile.dart';
 
 
 class HotelOffers extends StatefulWidget {
-  String hotelId;
-  HotelOffers(this.hotelId);
+  String hotelId,checkInDate;
+  HotelOffers(this.hotelId,this.checkInDate);
 
   @override
   _HotelOffersState createState() => _HotelOffersState();
@@ -44,7 +44,7 @@ class _HotelOffersState extends State<HotelOffers> {
             Expanded(
               child: GetBuilder<OffersController>(
                 init: Get.put(OffersController()),
-                initState: (_) => OffersController.to.fetchHotelOffers(widget.hotelId),
+                initState: (_) => OffersController.to.fetchHotelOffers(widget.hotelId, widget.checkInDate),
                 builder: (controller) {
                   if (controller.isLoading)
                     return Center(child: CircularProgressIndicator());

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
@@ -11,6 +12,7 @@ import 'package:requests/requests.dart';
 class FlightsInput extends StatefulWidget {
   static String origin = "origin";
   static String destination = "destination";
+  static String checkInDate = "checkInDate";
   @override
   _FlightsInputState createState() => _FlightsInputState();
 }
@@ -29,12 +31,19 @@ class _FlightsInputState extends State<FlightsInput> {
   List<dynamic>_placeListOrigin = [];
   List<dynamic>_placeListDestination = [];
 
-  String kGoogleApiKey = "AIzaSyD6ijb43zMaxEZCfGP_XF7Cc4NgIByAGS0";
+  String kGoogleApiKey = "";
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    loadGoogleApiKey();
+    DateFormat dateformatter = DateFormat('yyyy-MM-dd');
+    String dateFormatted = dateformatter.format(date);
+    FlightsInput.checkInDate = dateFormatted;
+
+    print(FlightsInput.checkInDate);
+
     originController.addListener(() {
       _onChangedOrigin();
     });
@@ -44,51 +53,10 @@ class _FlightsInputState extends State<FlightsInput> {
     });
   }
 
-  void _onChangedOrigin() {
-    if (_sessionToken == null) {
-      setState(() {
-        _sessionToken = uuid.v4();
-      });
-    }
-    getSuggestionOrigin(originController.text);
-  }
-
-  void _onChangedDestination() {
-    if (_sessionToken == null) {
-      setState(() {
-        _sessionToken = uuid.v4();
-      });
-    }
-    getSuggestionDestination(destinationController.text);
-  }
-
-  void getSuggestionOrigin(String input) async {
-    _placeListDestination = [];
-    String kPLACES_API_KEY = kGoogleApiKey;
-    String type = '(regions)';
-    String url = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&key=$kPLACES_API_KEY&sessiontoken=$_sessionToken";
-    var response = await Requests.get(url);
-    if (response.statusCode == 200) {
-    setState(() {
-    _placeListOrigin = json.decode(response.content())['predictions'];
-    });
-    } else {
-    throw Exception('Failed to load predictions');
-    }
-  }
-  void getSuggestionDestination(String input) async {
-    _placeListOrigin = [];
-    String kPLACES_API_KEY = kGoogleApiKey;
-    String type = '(regions)';
-    String url = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&key=$kPLACES_API_KEY&sessiontoken=$_sessionToken";
-    var response = await Requests.get(url);
-    if (response.statusCode == 200) {
-      setState(() {
-        _placeListDestination = json.decode(response.content())['predictions'];
-      });
-    } else {
-      throw Exception('Failed to load predictions');
-    }
+  loadGoogleApiKey() async{
+    String data = await rootBundle.loadString('assets/keys.json');
+    List jsonResult = json.decode(data);
+    kGoogleApiKey = jsonResult[0]["GoogleApi"];
   }
 
   @override
@@ -159,7 +127,6 @@ class _FlightsInputState extends State<FlightsInput> {
                                   setState(() {
                                     FlightsInput.destination = orig;
                                   });
-
                                   setState(() {
                                     _placeListDestination=[];
                                   });
@@ -207,6 +174,7 @@ class _FlightsInputState extends State<FlightsInput> {
                                             decoration: InputDecoration(
                                               hintText: origin,
                                               filled: true,
+                                              border: InputBorder.none,
                                             ),
                                           ),
                                         ),
@@ -245,6 +213,7 @@ class _FlightsInputState extends State<FlightsInput> {
                                             decoration: InputDecoration(
                                               hintText: destination,
                                               filled: true,
+                                              border: InputBorder.none,
                                             ),
                                           ),
                                         ),
@@ -276,7 +245,12 @@ class _FlightsInputState extends State<FlightsInput> {
                                     child: Row(
                                       children: [
                                         InkWell(
-                                            onTap: () => _selectDate(context),
+                                            onTap: () {
+                                              _selectDate(context);
+                                              DateFormat dateformatter = DateFormat('yyyy-MM-dd');
+                                              String dateFormatted = dateformatter.format(date);
+                                              FlightsInput.checkInDate = dateFormatted;
+                                              },
                                             child: Row(
                                               children: [
                                                 Icon(Icons.date_range_outlined),
@@ -430,6 +404,57 @@ class _FlightsInputState extends State<FlightsInput> {
     if (picked != null && picked != date)
       setState(() {
         date = picked;
+        DateFormat dateformatter = DateFormat('yyyy-MM-dd');
+        String dateFormatted = dateformatter.format(date);
+        FlightsInput.checkInDate = dateFormatted;
       });
   }
+
+  void _onChangedOrigin() {
+    if (_sessionToken == null) {
+      setState(() {
+        _sessionToken = uuid.v4();
+      });
+    }
+    getSuggestionOrigin(originController.text);
+  }
+
+  void _onChangedDestination() {
+    if (_sessionToken == null) {
+      setState(() {
+        _sessionToken = uuid.v4();
+      });
+    }
+    getSuggestionDestination(destinationController.text);
+  }
+
+  void getSuggestionOrigin(String input) async {
+    _placeListDestination = [];
+    String kPLACES_API_KEY = kGoogleApiKey;
+    String type = '(regions)';
+    String url = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&key=$kPLACES_API_KEY&sessiontoken=$_sessionToken";
+    var response = await Requests.get(url);
+    if (response.statusCode == 200) {
+      setState(() {
+        _placeListOrigin = json.decode(response.content())['predictions'];
+      });
+    } else {
+      throw Exception('Failed to load predictions');
+    }
+  }
+  void getSuggestionDestination(String input) async {
+    _placeListOrigin = [];
+    String kPLACES_API_KEY = kGoogleApiKey;
+    String type = '(regions)';
+    String url = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&key=$kPLACES_API_KEY&sessiontoken=$_sessionToken";
+    var response = await Requests.get(url);
+    if (response.statusCode == 200) {
+      setState(() {
+        _placeListDestination = json.decode(response.content())['predictions'];
+      });
+    } else {
+      throw Exception('Failed to load predictions');
+    }
+  }
+
 }

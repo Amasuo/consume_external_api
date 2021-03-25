@@ -8,6 +8,7 @@ import 'hotel_tile.dart';
 
 class HotelsPage extends StatefulWidget {
   String cityCode;
+  String checkInDate;
 
   @override
   _HotelsPageState createState() => _HotelsPageState();
@@ -19,6 +20,7 @@ class _HotelsPageState extends State<HotelsPage> {
   @override
   void initState() {
     widget.cityCode = FlightsInput.destination;
+    widget.checkInDate = FlightsInput.checkInDate;
     super.initState();
   }
 
@@ -48,11 +50,11 @@ class _HotelsPageState extends State<HotelsPage> {
                 ],
               ),
             ),
-            if(widget.cityCode != null && widget.cityCode != "destination")
+            if(widget.cityCode != null && widget.cityCode != "destination" && widget.checkInDate != null && widget.checkInDate != "checkInDate")
             Expanded(
                 child: GetBuilder<HotelController>(
                   init: Get.put(HotelController()),
-                  initState: (_) => HotelController.to.fetchHotels(widget.cityCode),
+                  initState: (_) => HotelController.to.fetchHotels(widget.cityCode,widget.checkInDate),
                   builder: (controller) {
                     if (controller.isLoading)
                       return Center(child: CircularProgressIndicator());
@@ -64,12 +66,12 @@ class _HotelsPageState extends State<HotelsPage> {
                           crossAxisSpacing: 5,
                           mainAxisSpacing: 8,
                           itemBuilder: (context, index) {
-                            return HotelTile(controller.hotelList[index].hotel);
+                            return HotelTile(controller.hotelList[index].hotel,widget.checkInDate);
                           },
                           staggeredTileBuilder: (index) => StaggeredTile.fit(1),
                       );
                       else
-                        return Text("No Hotels Found");/*AlertDialog(
+                        return noItemsFound();/*AlertDialog(
                           title: Text('No Hotels'),
                           content: SingleChildScrollView(
                             child: ListBody(
@@ -91,11 +93,16 @@ class _HotelsPageState extends State<HotelsPage> {
                 )
             )
             else
-              Text('Provide destination please'),
+              Text('Provide destination and date please'),
           ],
         ),
       )
     );
+  }
+
+  Widget noItemsFound(){
+    FlightsInput.destination = "destination";
+    return Text("No Hotels Found");
   }
 }
 
