@@ -123,7 +123,7 @@ class _FlightsInputState extends State<FlightsInput> {
                                       controller: originController,
                                       decoration: InputDecoration(
                                           fillColor: Colors.white,
-                                          hintText: origin,
+                                          hintText: "origin",
                                           filled: true,
                                           border: InputBorder.none,
                                           prefixIcon: Icon(Icons.search)
@@ -138,13 +138,13 @@ class _FlightsInputState extends State<FlightsInput> {
                                         onTap: () async {
                                           origin = _placeListOrigin[index]["structured_formatting"]["main_text"] + "-" + _placeListOrigin[index]["structured_formatting"]["secondary_text"];
                                           originController.text = origin;
-
-                                          var orig = await service.RemoteServices.getCityCode(originController.text);
-                                          setState(() {
-                                            FlightsInput.origin = orig;
-                                          });
+                                          /*setState(() {
+                                            _placeListOrigin=[];
+                                          });*/
+                                          var orig = await service.RemoteServices.getCityCode(origin);
                                           setState(() {
                                             _placeListOrigin=[];
+                                            FlightsInput.origin = orig;
                                           });
                                           FocusScope.of(context).unfocus();
                                         },
@@ -179,7 +179,7 @@ class _FlightsInputState extends State<FlightsInput> {
                                       controller: destinationController,
                                       decoration: InputDecoration(
                                           fillColor: Colors.white,
-                                          hintText: destination,
+                                          hintText: "destination",
                                           filled: true,
                                           border: InputBorder.none,
                                           prefixIcon: Icon(Icons.search)
@@ -194,13 +194,13 @@ class _FlightsInputState extends State<FlightsInput> {
                                         onTap: () async {
                                           destination = _placeListDestination[index]["structured_formatting"]["main_text"] + "-" + _placeListDestination[index]["structured_formatting"]["secondary_text"];
                                           destinationController.text = destination;
-
-                                          var orig = await service.RemoteServices.getCityCode(destinationController.text);
-                                          setState(() {
-                                            FlightsInput.destination = orig;
-                                          });
+                                          /*setState(() {
+                                            _placeListDestination=[];
+                                          });*/
+                                          var orig = await service.RemoteServices.getCityCode(destination);
                                           setState(() {
                                             _placeListDestination=[];
+                                            FlightsInput.destination = orig;
                                           });
                                           FocusScope.of(context).unfocus();
                                         },

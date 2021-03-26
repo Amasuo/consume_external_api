@@ -18,6 +18,7 @@ class FlightsPage extends StatefulWidget {
 class _FlightsPageState extends State<FlightsPage> {
   FlightController flightController;
   List airlines;
+  List currencies;
 
   Future<String> loadAirlines() async {
     var jsonText = await rootBundle.loadString('assets/airlines');
@@ -27,9 +28,18 @@ class _FlightsPageState extends State<FlightsPage> {
     });
   }
 
+  Future<String> loadCurrencies() async {
+    var jsonText = await rootBundle.loadString('assets/currencies.json');
+    setState(() {
+      currencies = json.decode(jsonText);
+      return 'success' ;
+    });
+  }
+
   @override
   void initState() {
     this.loadAirlines();
+    this.loadCurrencies();
     super.initState();
   }
 
@@ -71,7 +81,7 @@ class _FlightsPageState extends State<FlightsPage> {
                         return ListView.builder(
                             itemCount: controller.flightList.length,
                             itemBuilder: (context, index) {
-                              return FlightTile(controller.flightList[index],airlines);
+                              return FlightTile(controller.flightList[index],airlines,currencies);
                             }
                       );
                       else
